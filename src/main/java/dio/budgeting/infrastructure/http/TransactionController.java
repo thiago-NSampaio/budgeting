@@ -1,11 +1,12 @@
 package dio.budgeting.infrastructure.http;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Resource;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,23 +38,21 @@ public class TransactionController {
     private final TranscriptionService transcriptionService;
     private final ChatClient chatClient;
     private final PiperTtsService piperTtsService;
-
-    // @Value("classpath:/prompts/system-message.st")
-    // private Resource systemPrompt;
+    // private final TextNormalizerService textNormalizerService;
 
     public TransactionController(
         PersistTransactionUseCase persistTransactionUseCase,
         ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase,
         TranscriptionService transcriptionService,
         ChatClient.Builder chatClientBuilder,
-        PiperTtsService piperTtsService
-    ){
+        PiperTtsService piperTtsService,
+        @Value("classpath:/prompts/system-message.st") Resource systemPrompt
+    ) throws IOException {
         this.persistTransactionUseCase = persistTransactionUseCase;
         this.listTransactionsByCategoryUseCase = listTransactionsByCategoryUseCase;
         this.transcriptionService = transcriptionService;
         this.chatClient = 
-        chatClientBuilder.defaultSystem("Vocé é um assistente financeiro. Sua tarefa é extrair dados de transações e usar as ferramentas disponíveis para manipular transações.\r\n" + //
-                        "Ao Registrar uma transação, escolha a categoria que melhor se adapta")
+        chatClientBuilder.defaultSystem(systemPrompt)
                         .defaultTools(persistTransactionUseCase, listTransactionsByCategoryUseCase).build();
         this.piperTtsService = piperTtsService;
     }
@@ -75,7 +74,7 @@ public class TransactionController {
         var userMessage = transcriptionService.transcribeAudio(file);
 
         var result = chatClient.prompt().user(userMessage).call().content();
-        
+
         byte[] audio = piperTtsService.generateSpeech(result);
 
         var resource = new ByteArrayResource(audio);

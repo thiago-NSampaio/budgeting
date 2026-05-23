@@ -20,8 +20,8 @@ public class PiperTtsService {
 
     private static final String PIPER_EXECUTABLE = "piper";
 
-private static final String MODEL_PATH =
-        "C:\\Users\\tiago\\piper\\voices\\pt_BR-faber-medium.onnx";
+    private static final String MODEL_PATH =
+            "C:\\Users\\tiago\\piper\\voices\\pt_BR-faber-medium.onnx";
 
     private static final long TIMEOUT_SECONDS = 120;
 
