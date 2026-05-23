@@ -9,7 +9,7 @@ services:
       MYSQL_PASSWORD: app
 
     ports:
-      - "3307:3307"
+      - "3307:3306"
 
     volumes:
       - transaction_data:/var/lib/mysql
