@@ -6,7 +6,7 @@ import dio.budgeting.domain.Category;
 
 public record PersistTransactionInput(
     @ToolParam(description = "Descrição do gasto, compra ou recebimento") String description,
-    @ToolParam(description = "valor do gasto em centavos") Long amount, 
+    @ToolParam(description = "valor do gasto, compra ou recebimento em centavos") Long amount, 
     @ToolParam(description = "Categoria de uma transação") Category category
 ) {
 }
