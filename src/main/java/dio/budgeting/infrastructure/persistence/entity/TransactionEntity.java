@@ -5,6 +5,8 @@ import java.util.UUID;
 import dio.budgeting.domain.Category;
 import dio.budgeting.domain.Transaction;
 import dio.budgeting.domain.TransactionId;
+import dio.budgeting.domain.UserId;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,20 +28,26 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    public static TransactionEntity from(Transaction transaction){
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
+
+    public static TransactionEntity from(Transaction transaction) {
         return new TransactionEntity(
             transaction.getId().uuid(),
             transaction.getDescription(),
             transaction.getAmount(),
-            transaction.getCategory());
+            transaction.getCategory(),
+            transaction.getUserId().uuid()
+        );
     }
 
-    public Transaction toDomain(){
+    public Transaction toDomain() {
         return new Transaction(
             new TransactionId(this.id),
             this.description,
             this.amount,
-            this.category
+            this.category,
+            new UserId(this.userId)
         );
     }
 }

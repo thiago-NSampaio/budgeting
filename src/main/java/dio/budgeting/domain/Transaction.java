@@ -10,11 +10,13 @@ public class Transaction {
     private String description;
     private Long amount;
     private Category category;
+    private UserId userId;
 
-    public Transaction(String description, Long amount, Category category){
+    public Transaction(String description, Long amount, Category category, UserId userId){
         this.id = new TransactionId();
         this.description = description;
         this.amount = amount;
         this.category = category;
+        this.userId = userId;
     }
 }
