@@ -14,7 +14,7 @@ public class PersistUserUseCase {
         this.userRepository = userRepository;
     }
 
-    @Tool(name = "persist-user", description = "Persiste uma novo usuário")
+    @Tool(name = "persist-user", description = "Persiste um novo usuário")
     public UserOutput execute(PersistUserInput input) {
         var user = userRepository.save(new User(input.name(), input.email(), input.password()));
         return UserOutput.from(user);
