@@ -1,9 +1,12 @@
 package dio.budgeting.infrastructure.persistence.repository;
 
+import org.springframework.stereotype.Repository;
+
 import dio.budgeting.domain.User;
 import dio.budgeting.domain.UserRepository;
 import dio.budgeting.infrastructure.persistence.entity.UserEntity;
 
+@Repository
 public class JpaUserRepository implements UserRepository{
     private UserEntityRepository userEntityRepository;
 

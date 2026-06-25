@@ -1,12 +1,14 @@
 package dio.budgeting.application;
 
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.input.PersistUserInput;
 import dio.budgeting.application.output.UserOutput;
 import dio.budgeting.domain.User;
 import dio.budgeting.domain.UserRepository;
 
+@Service
 public class PersistUserUseCase {
     private UserRepository userRepository;
 
