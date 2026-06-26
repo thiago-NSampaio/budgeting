@@ -7,7 +7,7 @@ public record UserOutput(String id, String name, String email) {
         return new UserOutput(
             user.getName(),
             user.getEmail(),
-            user.getEmail()
+            user.getPasswordHash()
         );
     }
 }

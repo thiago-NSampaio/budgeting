@@ -1,7 +1,10 @@
 package dio.budgeting.infrastructure.persistence.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
+import dio.budgeting.domain.Email;
 import dio.budgeting.domain.User;
 import dio.budgeting.domain.UserRepository;
 import dio.budgeting.infrastructure.persistence.entity.UserEntity;
@@ -19,4 +22,10 @@ public class JpaUserRepository implements UserRepository{
         var entity = UserEntity.from(user);
         return userEntityRepository.save(entity).toDomain();
     }
+
+    @Override
+    public Optional<User> findUserByEmail(Email email) {
+        return this.userEntityRepository.findUserByEmail(email);
+    }
+
 }
