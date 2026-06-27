@@ -23,6 +23,7 @@ public class JpaTransactionRepository implements TransactionRepository{
         var entity = TransactionEntity.from(transaction);
         return transactionEntityRepository.save(entity).toDomain();
     }
+    
     @Override
     public List<Transaction> findAllByCategory(Category category) {
         return transactionEntityRepository.findAllByCategory(category).stream().map(TransactionEntity::toDomain).toList();
