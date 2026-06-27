@@ -21,11 +21,9 @@ public class PersistUserUseCase {
 
     @Tool(name = "persist-user", description = "Persiste um novo usuário para usar a aplicação")
     public UserOutput execute(PersistUserInput input) {
-        var user = userRepository.save(new User(input.name(), input.email(), input.password()));
-
         var passwordHash = passwordEncoder.encode(input.password());
 
-        user.changePassword(passwordHash);
+        var user = userRepository.save(new User(input.name(), input.email(), passwordHash));
 
         return UserOutput.from(user);
     }

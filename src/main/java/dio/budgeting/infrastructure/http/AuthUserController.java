@@ -1,6 +1,5 @@
 package dio.budgeting.infrastructure.http;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +14,13 @@ import dio.budgeting.domain.dto.AuthUserRequest;
 @RequestMapping("/auth")
 public class AuthUserController {
 
-  @Autowired
-  private AuthUserUseCase authUserUseCase;
+  private final AuthUserUseCase authUserUseCase;
 
-  @PostMapping("/auth")
+  public AuthUserController(AuthUserUseCase authUserUseCase) {
+    this.authUserUseCase = authUserUseCase;
+  }
+
+  @PostMapping
   public ResponseEntity<Object> auth(@RequestBody AuthUserRequest authUserRequest) {
     try {
       var token = this.authUserUseCase.execute(authUserRequest);

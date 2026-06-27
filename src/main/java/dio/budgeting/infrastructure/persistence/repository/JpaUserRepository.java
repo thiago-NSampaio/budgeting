@@ -4,16 +4,15 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import dio.budgeting.domain.Email;
 import dio.budgeting.domain.User;
 import dio.budgeting.domain.UserRepository;
 import dio.budgeting.infrastructure.persistence.entity.UserEntity;
 
 @Repository
-public class JpaUserRepository implements UserRepository{
+public class JpaUserRepository implements UserRepository {
     private UserEntityRepository userEntityRepository;
 
-    public JpaUserRepository(UserEntityRepository userEntityRepository){
+    public JpaUserRepository(UserEntityRepository userEntityRepository) {
         this.userEntityRepository = userEntityRepository;
     }
 
@@ -24,8 +23,9 @@ public class JpaUserRepository implements UserRepository{
     }
 
     @Override
-    public Optional<User> findUserByEmail(Email email) {
-        return this.userEntityRepository.findUserByEmail(email);
-    }
+    public Optional<User> findByEmail(String email) {
+        Optional<UserEntity> entity = userEntityRepository.findByEmail(email);
 
+        return entity.map(UserEntity::toDomain);
+    }
 }

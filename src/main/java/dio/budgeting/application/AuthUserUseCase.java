@@ -30,7 +30,7 @@ public class AuthUserUseCase {
     }
 
     public AuthUserResponse execute(AuthUserRequest authUserRequest) {
-        var user = userRepository.findUserByEmail(authUserRequest.email())
+        var user = userRepository.findByEmail(authUserRequest.email())
                 .orElseThrow(() -> new UsernameNotFoundException("Email ou senha inválidos"));
 
         if (!passwordEncoder.matches(authUserRequest.password(), user.getPasswordHash())) {
@@ -45,8 +45,10 @@ public class AuthUserUseCase {
                 .withExpiresAt(expiresAt)
                 .sign(Algorithm.HMAC256(secretKey));
 
-        return new AuthUserResponse(
+       var auth = new AuthUserResponse(
                 token,
                 Duration.ofMinutes(10).toSeconds());
+
+        return auth;
     }
 }
