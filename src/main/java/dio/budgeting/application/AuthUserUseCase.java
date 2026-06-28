@@ -38,14 +38,13 @@ public class AuthUserUseCase {
         }
 
         Instant expiresAt = Instant.now().plus(Duration.ofMinutes(10));
-
         String token = JWT.create()
                 .withIssuer("aura-finance")
-                .withSubject(user.getId().toString())
+                .withSubject(user.getId().uuid().toString())
                 .withExpiresAt(expiresAt)
                 .sign(Algorithm.HMAC256(secretKey));
 
-       var auth = new AuthUserResponse(
+        var auth = new AuthUserResponse(
                 token,
                 Duration.ofMinutes(10).toSeconds());
 

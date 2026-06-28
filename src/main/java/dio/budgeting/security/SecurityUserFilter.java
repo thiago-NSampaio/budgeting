@@ -1,6 +1,7 @@
 package dio.budgeting.security;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +27,6 @@ public class SecurityUserFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     String header = request.getHeader("Authorization");
-
     if (header != null && header.startsWith("Bearer ")) {
 
       var token = this.jwtProvider.validateToken(header);
@@ -36,7 +36,11 @@ public class SecurityUserFilter extends OncePerRequestFilter {
         return;
       }
 
-      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null);
+      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+          token.getSubject(),
+          null,
+          Collections.emptyList());
+
       SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
