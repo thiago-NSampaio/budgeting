@@ -1,6 +1,9 @@
 package dio.budgeting.infrastructure.persistence.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import dio.budgeting.domain.User;
 import dio.budgeting.domain.UserId;
@@ -30,12 +33,17 @@ public class UserEntity {
     @Column(nullable = false)
     private String passwordHash;
 
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
     public static UserEntity from(User user) {
         return new UserEntity(
                 user.getId().uuid(),
                 user.getName(),
                 user.getEmail(),
-                user.getPasswordHash());
+                user.getPasswordHash(),
+                user.getCreatedAt());
     }
 
     public User toDomain() {

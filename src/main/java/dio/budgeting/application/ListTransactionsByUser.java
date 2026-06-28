@@ -26,5 +26,4 @@ public class ListTransactionsByUser {
 
         return transactionRepository.findByUserId(userId).stream().map(TransactionOutput::from).toList();
     }
-
 }

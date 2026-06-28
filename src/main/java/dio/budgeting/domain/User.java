@@ -1,5 +1,7 @@
 package dio.budgeting.domain;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 
 @Getter
@@ -9,6 +11,7 @@ public class User {
     private String name;
     private String email;
     private String passwordHash;
+    private LocalDateTime createdAt;
 
     public User(UserId id, String name, String email, String passwordHash) {
         this.id = id;

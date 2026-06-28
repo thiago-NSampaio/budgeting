@@ -1,6 +1,9 @@
 package dio.budgeting.infrastructure.persistence.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import dio.budgeting.domain.Category;
 import dio.budgeting.domain.Transaction;
@@ -31,13 +34,18 @@ public class TransactionEntity {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
     public static TransactionEntity from(Transaction transaction) {
         return new TransactionEntity(
             transaction.getId().uuid(),
             transaction.getDescription(),
             transaction.getAmount(),
             transaction.getCategory(),
-            transaction.getUserId().uuid()
+            transaction.getUserId().uuid(),
+            transaction.getCreatedAt()
         );
     }
 
@@ -47,7 +55,8 @@ public class TransactionEntity {
             this.description,
             this.amount,
             this.category,
-            new UserId(this.userId)
+            new UserId(this.userId),
+            this.createdAt
         );
     }
 }
