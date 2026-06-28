@@ -72,7 +72,7 @@ public class TransactionController {
         return listTransactionsByCategoryUseCase.execute(category).stream().map(TransactionResponse::from).toList();
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<TransactionResponse> transactions(){
         return listTransactionsByUser.execute().stream().map(TransactionResponse::from).toList();
     }
