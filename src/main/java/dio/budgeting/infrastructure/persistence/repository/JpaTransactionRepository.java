@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import dio.budgeting.domain.Category;
 import dio.budgeting.domain.Transaction;
 import dio.budgeting.domain.TransactionRepository;
+import dio.budgeting.domain.UserId;
 import dio.budgeting.infrastructure.persistence.entity.TransactionEntity;
 
 @Repository
@@ -25,8 +26,7 @@ public class JpaTransactionRepository implements TransactionRepository{
     }
     
     @Override
-    public List<Transaction> findAllByCategory(Category category) {
-        return transactionEntityRepository.findAllByCategory(category).stream().map(TransactionEntity::toDomain).toList();
+    public List<Transaction> findByCategoryAndUserId(Category category, UserId userId) {
+        return transactionEntityRepository.findByCategoryAndUserId(category, userId.uuid()).stream().map(TransactionEntity::toDomain).toList();
     }
-    
 }
