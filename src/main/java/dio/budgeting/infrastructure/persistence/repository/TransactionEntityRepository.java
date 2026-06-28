@@ -10,4 +10,5 @@ import dio.budgeting.infrastructure.persistence.entity.TransactionEntity;
 
 public interface TransactionEntityRepository extends CrudRepository<TransactionEntity, UUID> {
     List<TransactionEntity> findByCategoryAndUserId(Category category, UUID userId);
+    List<TransactionEntity> findByUserId(UUID userId);
 }

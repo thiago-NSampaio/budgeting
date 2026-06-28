@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import dio.budgeting.application.ListTransactionsByCategoryUseCase;
+import dio.budgeting.application.ListTransactionsByUser;
 import dio.budgeting.application.PersistTransactionUseCase;
 import dio.budgeting.domain.Category;
 import dio.budgeting.infrastructure.http.request.TransactionRequest;
@@ -38,7 +39,7 @@ public class TransactionController {
     private final TranscriptionService transcriptionService;
     private final ChatClient chatClient;
     private final PiperTtsService piperTtsService;
-    // private final TextNormalizerService textNormalizerService;
+    private final ListTransactionsByUser listTransactionsByUser;
 
     public TransactionController(
         PersistTransactionUseCase persistTransactionUseCase,
@@ -46,7 +47,8 @@ public class TransactionController {
         TranscriptionService transcriptionService,
         ChatClient.Builder chatClientBuilder,
         PiperTtsService piperTtsService,
-        @Value("classpath:/prompts/system-message.st") Resource systemPrompt
+        @Value("classpath:/prompts/system-message.st") Resource systemPrompt,
+        ListTransactionsByUser listTransactionsByUser
     ) throws IOException {
         this.persistTransactionUseCase = persistTransactionUseCase;
         this.listTransactionsByCategoryUseCase = listTransactionsByCategoryUseCase;
@@ -55,6 +57,7 @@ public class TransactionController {
         chatClientBuilder.defaultSystem(systemPrompt)
                         .defaultTools(persistTransactionUseCase, listTransactionsByCategoryUseCase).build();
         this.piperTtsService = piperTtsService;
+        this.listTransactionsByUser = listTransactionsByUser;
     }
 
     @PostMapping
@@ -67,6 +70,11 @@ public class TransactionController {
     @GetMapping("/{category}")
     public List<TransactionResponse> readTransactions(@PathVariable Category category){
         return listTransactionsByCategoryUseCase.execute(category).stream().map(TransactionResponse::from).toList();
+    }
+
+    @GetMapping
+    public List<TransactionResponse> transactions(){
+        return listTransactionsByUser.execute().stream().map(TransactionResponse::from).toList();
     }
 
     @PostMapping(value = "/ai", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = "audio/mp3")
