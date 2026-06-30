@@ -32,6 +32,6 @@ public class JpaTransactionRepository implements TransactionRepository{
 
     @Override
     public List<Transaction> findByUserId(UserId userId) {
-        return transactionEntityRepository.findByUserId( userId.uuid()).stream().map(TransactionEntity::toDomain).toList();
+        return transactionEntityRepository.findByUserId(userId.uuid()).stream().map(TransactionEntity::toDomain).toList();
     }
 }

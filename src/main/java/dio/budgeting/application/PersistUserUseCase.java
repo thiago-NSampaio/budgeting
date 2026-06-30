@@ -1,6 +1,5 @@
 package dio.budgeting.application;
 
-import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ public class PersistUserUseCase {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Tool(name = "persist-user", description = "Persiste um novo usuário para usar a aplicação")
     public UserOutput execute(PersistUserInput input) {
         var passwordHash = passwordEncoder.encode(input.password());
 

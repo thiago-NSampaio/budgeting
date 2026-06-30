@@ -23,8 +23,6 @@ public class PersistTransactionUseCase {
     @Tool(name = "persist-transaction" ,description = "Persiste uma nova transação financeira")
     public TransactionOutput execute(PersistTransactionInput input){
         var userId = authenticatedUserProvider.currentUserId();
-        System.out.println("testetets"+input);
-                System.out.println("category  "+input.category());
 
         var transaction = transactionRepository.save(new Transaction(input.description(), input.amount(), input.category(), userId));
         return TransactionOutput.from(transaction);
