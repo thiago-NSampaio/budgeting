@@ -10,11 +10,11 @@ import dio.budgeting.domain.TransactionRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service
-public class ListTransactionsByUser {
+public class ListTransactionsByUserUseCase {
     private final TransactionRepository transactionRepository;
     private final AuthenticatedUserProvider authenticatedUserProvider;
 
-    public ListTransactionsByUser(TransactionRepository transactionRepository,
+    public ListTransactionsByUserUseCase(TransactionRepository transactionRepository,
             AuthenticatedUserProvider authenticatedUserProvider) {
         this.transactionRepository = transactionRepository;
         this.authenticatedUserProvider = authenticatedUserProvider;

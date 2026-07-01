@@ -2,11 +2,14 @@ package dio.budgeting.infrastructure.persistence.repository;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import dio.budgeting.domain.Goal;
 import dio.budgeting.domain.GoalRepository;
 import dio.budgeting.domain.UserId;
 import dio.budgeting.infrastructure.persistence.entity.GoalEntity;
 
+@Repository
 public class JpaGoalRepository implements GoalRepository{
 
     private GoalEntityRepository goalEntityRepository;

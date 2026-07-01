@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import dio.budgeting.application.ListTransactionsByCategoryUseCase;
-import dio.budgeting.application.ListTransactionsByUser;
+import dio.budgeting.application.ListTransactionsByUserUseCase;
 import dio.budgeting.application.PersistTransactionUseCase;
 import dio.budgeting.domain.Category;
 import dio.budgeting.infrastructure.http.request.TransactionRequest;
@@ -39,7 +39,7 @@ public class TransactionController {
     private final TranscriptionService transcriptionService;
     private final ChatClient chatClient;
     private final PiperTtsService piperTtsService;
-    private final ListTransactionsByUser listTransactionsByUser;
+    private final ListTransactionsByUserUseCase listTransactionsByUser;
 
     public TransactionController(
         PersistTransactionUseCase persistTransactionUseCase,
@@ -48,7 +48,7 @@ public class TransactionController {
         ChatClient.Builder chatClientBuilder,
         PiperTtsService piperTtsService,
         @Value("classpath:/prompts/system-message.st") Resource systemPrompt,
-        ListTransactionsByUser listTransactionsByUser
+        ListTransactionsByUserUseCase listTransactionsByUser
     ) throws IOException {
         this.persistTransactionUseCase = persistTransactionUseCase;
         this.listTransactionsByCategoryUseCase = listTransactionsByCategoryUseCase;
