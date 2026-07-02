@@ -1,5 +1,6 @@
 package dio.budgeting.application;
 
+import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.output.BudgetLimitOutput;
@@ -17,6 +18,7 @@ public class ListBudgetLimitUseCase {
         this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
+    @Tool(name = "list-budget-limit" ,description = "Lista o limite de orçamento defino pelo usuário")
     public BudgetLimitOutput execute() {
         var userId = authenticatedUserProvider.currentUserId();
 

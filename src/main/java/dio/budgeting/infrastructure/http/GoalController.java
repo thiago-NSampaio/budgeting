@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import dio.budgeting.application.listGoalUseCase;
+import dio.budgeting.application.ListGoalUseCase;
 import dio.budgeting.application.PersistGoalUseCase;
 import dio.budgeting.infrastructure.http.request.GoalRequest;
 import dio.budgeting.infrastructure.http.response.GoalResponse;
@@ -17,9 +17,9 @@ import dio.budgeting.infrastructure.http.response.GoalResponse;
 @RequestMapping("/goals")
 public class GoalController {
     private final PersistGoalUseCase persistGoalUseCase;
-    private final listGoalUseCase getGoalUseCase;
+    private final ListGoalUseCase getGoalUseCase;
 
-    public GoalController(PersistGoalUseCase persistGoalUseCase, listGoalUseCase getGoalUseCase) {
+    public GoalController(PersistGoalUseCase persistGoalUseCase, ListGoalUseCase getGoalUseCase) {
         this.persistGoalUseCase = persistGoalUseCase;
         this.getGoalUseCase = getGoalUseCase;
     }
