@@ -1,9 +1,12 @@
 package dio.budgeting.infrastructure.persistence.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import dio.budgeting.domain.BudgetLimit;
 import dio.budgeting.domain.BudgetLimitRepository;
+import dio.budgeting.domain.UserId;
 import dio.budgeting.infrastructure.persistence.entity.BudgetLimitEntity;
 
 @Repository
@@ -20,6 +23,11 @@ public class JpaBudgetLimitRepository implements BudgetLimitRepository{
         var entity = BudgetLimitEntity.from(budgetLimit);
 
         return budgetLimitEntityRepository.save(entity).toDomain();
+    }
+
+    @Override
+    public Optional<BudgetLimit> findByUserId(UserId userId) {
+        return budgetLimitEntityRepository.findByUserId(userId.uuid()).map(BudgetLimitEntity::toDomain);
     }
 
 } 

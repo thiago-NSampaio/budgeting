@@ -34,6 +34,6 @@ public class BudgetLimitEntity {
     }
 
     public BudgetLimit toDomain(){
-        return new BudgetLimit(new BudgetLimitId(this.id),new UserId(this.id), this.month, this.limitAmount);
+        return new BudgetLimit(new BudgetLimitId(this.id),new UserId(this.user_id), this.month, this.limitAmount);
     }
 }
