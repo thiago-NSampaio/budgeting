@@ -4,7 +4,7 @@ import java.time.YearMonth;
 
 import dio.budgeting.domain.BudgetLimit;
 
-public record BudgetLimitOutput(String id, YearMonth month, Long budgetLimit) {
+public record BudgetLimitOutput(String id, YearMonth month, Long limitAmount) {
     public static BudgetLimitOutput from(BudgetLimit budgetLimit){
         return new BudgetLimitOutput(
             budgetLimit.getId().uuid().toString(),
