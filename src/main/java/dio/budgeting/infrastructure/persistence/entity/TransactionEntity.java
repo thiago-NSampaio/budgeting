@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import dio.budgeting.domain.Category;
 import dio.budgeting.domain.Transaction;
 import dio.budgeting.domain.TransactionId;
+import dio.budgeting.domain.TransactionType;
 import dio.budgeting.domain.UserId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +40,9 @@ public class TransactionEntity {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+    
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
     public static TransactionEntity from(Transaction transaction) {
         return new TransactionEntity(
@@ -47,7 +51,8 @@ public class TransactionEntity {
             transaction.getAmount(),
             transaction.getCategory(),
             transaction.getUserId().uuid(),
-            transaction.getCreatedAt()
+            transaction.getCreatedAt(),
+            transaction.getType()
         );
     }
 
@@ -58,7 +63,8 @@ public class TransactionEntity {
             this.amount,
             this.category,
             new UserId(this.userId),
-            this.createdAt
+            this.createdAt,
+            this.type
         );
     }
 }

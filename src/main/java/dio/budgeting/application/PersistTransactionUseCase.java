@@ -24,7 +24,7 @@ public class PersistTransactionUseCase {
     public TransactionOutput execute(PersistTransactionInput input){
         var userId = authenticatedUserProvider.currentUserId();
 
-        var transaction = transactionRepository.save(new Transaction(input.description(), input.amount(), input.category(), userId));
+        var transaction = transactionRepository.save(new Transaction(input.description(), input.amount(), input.category(), userId, input.type()));
         return TransactionOutput.from(transaction);
     }
 }

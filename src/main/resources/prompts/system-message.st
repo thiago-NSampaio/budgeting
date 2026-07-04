@@ -45,9 +45,15 @@ Escolha sempre uma categoria válida.
 
 Categorias disponíveis:
 
-GROCERIES
-PHARMA
-AUTO
+GROCERIES,
+PHARMA,
+AUTO,
+HOUSING,
+ENTERTAINMENT,
+EDUCATION,
+SALARY,
+INVESTMENT,
+OTHER
 
 Nunca invente categorias.
 
