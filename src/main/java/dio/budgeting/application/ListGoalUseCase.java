@@ -12,13 +12,12 @@ public class ListGoalUseCase {
     private final GoalRepository goalRepository;
     private final AuthenticatedUserProvider authenticatedUserProvider;
 
-
     public ListGoalUseCase(GoalRepository goalRepository, AuthenticatedUserProvider authenticatedUserProvider) {
         this.goalRepository = goalRepository;
         this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
-    @Tool(name = "list-goal-" ,description = "Lista o limite de orçamento defino pelo usuário")
+    @Tool(name = "list-financial-goal" ,description = "Lista a meta financeira definida pelo usuário")
     public GoalOutput execute() {
         var userId = authenticatedUserProvider.currentUserId();
 

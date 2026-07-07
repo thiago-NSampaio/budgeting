@@ -63,6 +63,62 @@ Nunca envie category = null.
 
 Caso exista dúvida, escolha a categoria mais adequada.
 
+CLASSIFICAÇÃO DO TIPO
+
+Utilize as seguintes regras obrigatórias:
+
+INCOME
+- Recebimento de salário
+- Recebimento de dinheiro
+- Venda de produtos
+- Reembolso recebido
+- Rendimentos
+- Juros recebidos
+- Dividendos
+- Investimentos resgatados
+- Pix recebido
+- Depósito recebido
+- Transferência recebida
+
+EXPENSE
+- Compras
+- Mercado
+- Farmácia
+- Restaurantes
+- Uber
+- Táxi
+- Combustível
+- Aluguel
+- Conta de água
+- Conta de luz
+- Internet
+- Streaming
+- Escola
+- Faculdade
+- Investimentos realizados
+- Pix enviado
+- Pagamentos
+- Boletos
+- Cartão de crédito
+
+Sempre pergunte:
+
+"O dinheiro entrou ou saiu do patrimônio do usuário?"
+
+Se entrou:
+type = INCOME
+
+Se saiu:
+type = EXPENSE
+
+Nunca classifique uma compra como INCOME.
+
+Nunca classifique um pagamento como INCOME.
+
+Nunca classifique uma despesa como INCOME.
+
+Nunca classifique um recebimento como EXPENSE.
+
 VALORES
 
 Nunca altere valores monetários.

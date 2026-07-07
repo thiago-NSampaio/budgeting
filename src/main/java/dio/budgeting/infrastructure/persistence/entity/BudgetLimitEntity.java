@@ -7,7 +7,7 @@ import dio.budgeting.domain.BudgetLimit;
 import dio.budgeting.domain.BudgetLimitId;
 import dio.budgeting.domain.UserId;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,8 @@ public class BudgetLimitEntity {
     @Id
     private UUID id;
 
-    private UUID user_id;
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
 
     private YearMonth month;
 
@@ -34,6 +35,6 @@ public class BudgetLimitEntity {
     }
 
     public BudgetLimit toDomain(){
-        return new BudgetLimit(new BudgetLimitId(this.id),new UserId(this.user_id), this.month, this.limitAmount);
+        return new BudgetLimit(new BudgetLimitId(this.id),new UserId(this.userId), this.month, this.limitAmount);
     }
 }

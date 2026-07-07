@@ -2,6 +2,7 @@ package dio.budgeting.domain;
 
 import java.time.YearMonth;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,6 +11,7 @@ import lombok.Getter;
 public class BudgetLimit {
     private BudgetLimitId id;
 
+    @Column(name = "user_id")
     private UserId userId;
 
     private YearMonth month;

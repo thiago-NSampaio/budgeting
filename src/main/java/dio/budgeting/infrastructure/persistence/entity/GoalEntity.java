@@ -3,8 +3,7 @@ package dio.budgeting.infrastructure.persistence.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Id;
 import dio.budgeting.domain.Goal;
 import dio.budgeting.domain.GoalId;
 import dio.budgeting.domain.UserId;

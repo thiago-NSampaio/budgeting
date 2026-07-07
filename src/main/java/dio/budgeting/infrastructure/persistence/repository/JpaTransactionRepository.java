@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import dio.budgeting.domain.Category;
+import dio.budgeting.domain.Expense;
+import dio.budgeting.domain.Income;
 import dio.budgeting.domain.Transaction;
 import dio.budgeting.domain.TransactionRepository;
+import dio.budgeting.domain.TransactionType;
 import dio.budgeting.domain.UserId;
 import dio.budgeting.infrastructure.persistence.entity.TransactionEntity;
 
@@ -33,5 +36,21 @@ public class JpaTransactionRepository implements TransactionRepository{
     @Override
     public List<Transaction> findByUserId(UserId userId) {
         return transactionEntityRepository.findByUserId(userId.uuid()).stream().map(TransactionEntity::toDomain).toList();
+    }
+
+    @Override
+    public Income totalIncome(UserId userId) {
+        Long total = transactionEntityRepository
+            .sumByUserIdAndType(userId.uuid(), TransactionType.INCOME);
+
+        return new Income(total);
+    }
+
+   @Override
+    public Expense totalExpense(UserId userId) {
+        Long total = transactionEntityRepository
+            .sumByUserIdAndType(userId.uuid(), TransactionType.EXPENSE);
+
+        return new Expense(total);
     }
 }
