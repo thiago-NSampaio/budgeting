@@ -6,10 +6,10 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 
 import dio.budgeting.domain.Category;
-import dio.budgeting.domain.Transaction;
-import dio.budgeting.domain.TransactionId;
-import dio.budgeting.domain.TransactionType;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.transaction.Transaction;
+import dio.budgeting.domain.transaction.TransactionId;
+import dio.budgeting.domain.transaction.TransactionType;
+import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

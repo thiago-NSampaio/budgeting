@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import dio.budgeting.application.PersistUserUseCase;
+import dio.budgeting.application.user.PersistUserUseCase;
 import dio.budgeting.infrastructure.http.request.UserRequest;
 import dio.budgeting.infrastructure.http.response.UserResponse;
 

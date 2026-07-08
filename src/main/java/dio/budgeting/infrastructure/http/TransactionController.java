@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import dio.budgeting.application.ListTransactionsByCategoryUseCase;
-import dio.budgeting.application.ListTransactionsByUserUseCase;
-import dio.budgeting.application.PersistTransactionUseCase;
+import dio.budgeting.application.transaction.ListTransactionsByCategoryUseCase;
+import dio.budgeting.application.transaction.ListTransactionsByUserUseCase;
+import dio.budgeting.application.transaction.PersistTransactionUseCase;
 import dio.budgeting.domain.Category;
 import dio.budgeting.infrastructure.http.request.TransactionRequest;
 import dio.budgeting.infrastructure.http.response.TransactionResponse;

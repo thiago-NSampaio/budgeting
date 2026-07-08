@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import dio.budgeting.application.ListBudgetLimitUseCase;
-import dio.budgeting.application.PersistBudgetLimitUseCase;
+import dio.budgeting.application.budget.ListBudgetLimitUseCase;
+import dio.budgeting.application.budget.PersistBudgetLimitUseCase;
 import dio.budgeting.infrastructure.http.request.BudgetLimitRequest;
 import dio.budgeting.infrastructure.http.response.BudgetLimitResponse;
 

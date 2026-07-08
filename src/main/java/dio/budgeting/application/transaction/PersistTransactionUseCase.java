@@ -1,11 +1,11 @@
-package dio.budgeting.application;
+package dio.budgeting.application.transaction;
 
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.input.PersistTransactionInput;
 import dio.budgeting.application.output.TransactionOutput;
-import dio.budgeting.domain.Transaction;
-import dio.budgeting.domain.TransactionRepository;
+import dio.budgeting.domain.transaction.Transaction;
+import dio.budgeting.domain.transaction.TransactionRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 import org.springframework.ai.tool.annotation.Tool;;

@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import dio.budgeting.domain.Category;
-import dio.budgeting.domain.TransactionType;
+import dio.budgeting.domain.transaction.TransactionType;
 import dio.budgeting.infrastructure.persistence.entity.TransactionEntity;
 
 public interface TransactionEntityRepository extends CrudRepository<TransactionEntity, UUID> {

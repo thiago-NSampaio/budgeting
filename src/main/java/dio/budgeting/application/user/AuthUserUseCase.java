@@ -1,4 +1,4 @@
-package dio.budgeting.application;
+package dio.budgeting.application.user;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import dio.budgeting.domain.UserRepository;
 import dio.budgeting.domain.dto.AuthUserRequest;
 import dio.budgeting.domain.dto.AuthUserResponse;
+import dio.budgeting.domain.user.UserRepository;
 
 @Service
 public class AuthUserUseCase {

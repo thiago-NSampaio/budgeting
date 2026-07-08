@@ -3,7 +3,7 @@ package dio.budgeting.application.input;
 import org.springframework.ai.tool.annotation.ToolParam;
 
 import dio.budgeting.domain.Category;
-import dio.budgeting.domain.TransactionType;
+import dio.budgeting.domain.transaction.TransactionType;
 
 public record PersistTransactionInput(
     @ToolParam(description = "Descrição do gasto, compra ou recebimento") String description,

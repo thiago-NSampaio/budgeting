@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import dio.budgeting.domain.BudgetLimit;
-import dio.budgeting.domain.BudgetLimitRepository;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.balance.BudgetLimit;
+import dio.budgeting.domain.balance.BudgetLimitRepository;
+import dio.budgeting.domain.user.UserId;
 import dio.budgeting.infrastructure.persistence.entity.BudgetLimitEntity;
 
 @Repository

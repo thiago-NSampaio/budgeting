@@ -1,4 +1,4 @@
-package dio.budgeting.application;
+package dio.budgeting.application.transaction;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.output.TransactionOutput;
-import dio.budgeting.domain.TransactionRepository;
+import dio.budgeting.domain.transaction.TransactionRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service

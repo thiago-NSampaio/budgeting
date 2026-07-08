@@ -2,7 +2,7 @@ package dio.budgeting.infrastructure.http.request;
 
 import dio.budgeting.application.input.PersistTransactionInput;
 import dio.budgeting.domain.Category;
-import dio.budgeting.domain.TransactionType;
+import dio.budgeting.domain.transaction.TransactionType;
 
 public record TransactionRequest(String description, Category category, Long amount, TransactionType type) {
     public PersistTransactionInput toInput(){

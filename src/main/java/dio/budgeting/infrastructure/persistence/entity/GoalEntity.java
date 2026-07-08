@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import jakarta.persistence.Id;
-import dio.budgeting.domain.Goal;
-import dio.budgeting.domain.GoalId;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.goal.Goal;
+import dio.budgeting.domain.goal.GoalId;
+import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

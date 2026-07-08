@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import dio.budgeting.domain.User;
-import dio.budgeting.domain.UserRepository;
+import dio.budgeting.domain.user.User;
+import dio.budgeting.domain.user.UserRepository;
 import dio.budgeting.infrastructure.persistence.entity.UserEntity;
 
 @Repository

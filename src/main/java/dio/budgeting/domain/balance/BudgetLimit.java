@@ -1,7 +1,8 @@
-package dio.budgeting.domain;
+package dio.budgeting.domain.balance;
 
 import java.time.YearMonth;
 
+import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package dio.budgeting.domain;
+package dio.budgeting.domain.user;
 
 import java.util.UUID;
 

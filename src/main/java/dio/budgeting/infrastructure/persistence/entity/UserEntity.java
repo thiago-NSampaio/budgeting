@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import dio.budgeting.domain.User;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.user.User;
+import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

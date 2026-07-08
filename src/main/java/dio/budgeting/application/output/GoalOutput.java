@@ -2,7 +2,7 @@ package dio.budgeting.application.output;
 
 import java.time.LocalDate;
 
-import dio.budgeting.domain.Goal;
+import dio.budgeting.domain.goal.Goal;
 
 public record GoalOutput(String id, String title, Long targetAmount, Long currentAmount, LocalDate deadline) {
     public static GoalOutput from(Goal goal){

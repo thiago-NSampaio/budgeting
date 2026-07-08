@@ -1,11 +1,11 @@
-package dio.budgeting.application;
+package dio.budgeting.application.budget;
 
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.input.PersistBudgetLimitInput;
 import dio.budgeting.application.output.BudgetLimitOutput;
-import dio.budgeting.domain.BudgetLimit;
-import dio.budgeting.domain.BudgetLimitRepository;
+import dio.budgeting.domain.balance.BudgetLimit;
+import dio.budgeting.domain.balance.BudgetLimitRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service

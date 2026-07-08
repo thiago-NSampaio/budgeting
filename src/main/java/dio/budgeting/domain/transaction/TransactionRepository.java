@@ -1,6 +1,11 @@
-package dio.budgeting.domain;
+package dio.budgeting.domain.transaction;
 
 import java.util.List;
+
+import dio.budgeting.domain.Category;
+import dio.budgeting.domain.Expense;
+import dio.budgeting.domain.Income;
+import dio.budgeting.domain.user.UserId;
 
 public interface TransactionRepository {
     Transaction save(Transaction transaction);

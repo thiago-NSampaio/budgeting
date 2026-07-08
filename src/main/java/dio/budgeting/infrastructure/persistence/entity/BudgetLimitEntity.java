@@ -3,9 +3,9 @@ package dio.budgeting.infrastructure.persistence.entity;
 import java.time.YearMonth;
 import java.util.UUID;
 
-import dio.budgeting.domain.BudgetLimit;
-import dio.budgeting.domain.BudgetLimitId;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.balance.BudgetLimit;
+import dio.budgeting.domain.balance.BudgetLimitId;
+import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

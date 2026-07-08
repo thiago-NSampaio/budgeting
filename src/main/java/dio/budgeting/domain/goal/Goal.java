@@ -1,7 +1,8 @@
-package dio.budgeting.domain;
+package dio.budgeting.domain.goal;
 
 import java.time.LocalDate;
 
+import dio.budgeting.domain.user.UserId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

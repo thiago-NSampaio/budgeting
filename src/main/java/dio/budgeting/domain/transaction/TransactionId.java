@@ -1,4 +1,4 @@
-package dio.budgeting.domain;
+package dio.budgeting.domain.transaction;
 
 import java.util.UUID;
 

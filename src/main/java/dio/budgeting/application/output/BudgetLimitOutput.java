@@ -2,7 +2,7 @@ package dio.budgeting.application.output;
 
 import java.time.YearMonth;
 
-import dio.budgeting.domain.BudgetLimit;
+import dio.budgeting.domain.balance.BudgetLimit;
 
 public record BudgetLimitOutput(String id, YearMonth month, Long limitAmount) {
     public static BudgetLimitOutput from(BudgetLimit budgetLimit){

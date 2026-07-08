@@ -2,9 +2,10 @@ package dio.budgeting.application.output;
 
 import java.util.List;
 
-import dio.budgeting.domain.Balance;
 import dio.budgeting.domain.Expense;
 import dio.budgeting.domain.Income;
+import dio.budgeting.domain.balance.Balance;
+
 import java.util.stream.Collectors;
 
 public record DashboardOutput(

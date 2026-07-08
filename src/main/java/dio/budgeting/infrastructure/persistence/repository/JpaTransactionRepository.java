@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import dio.budgeting.domain.Category;
 import dio.budgeting.domain.Expense;
 import dio.budgeting.domain.Income;
-import dio.budgeting.domain.Transaction;
-import dio.budgeting.domain.TransactionRepository;
-import dio.budgeting.domain.TransactionType;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.transaction.Transaction;
+import dio.budgeting.domain.transaction.TransactionRepository;
+import dio.budgeting.domain.transaction.TransactionType;
+import dio.budgeting.domain.user.UserId;
 import dio.budgeting.infrastructure.persistence.entity.TransactionEntity;
 
 @Repository

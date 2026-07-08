@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import dio.budgeting.application.ListGoalUseCase;
-import dio.budgeting.application.PersistGoalUseCase;
+import dio.budgeting.application.goal.ListGoalUseCase;
+import dio.budgeting.application.goal.PersistGoalUseCase;
 import dio.budgeting.infrastructure.http.request.GoalRequest;
 import dio.budgeting.infrastructure.http.response.GoalResponse;
 

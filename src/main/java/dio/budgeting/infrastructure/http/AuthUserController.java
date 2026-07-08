@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dio.budgeting.application.AuthUserUseCase;
+import dio.budgeting.application.user.AuthUserUseCase;
 import dio.budgeting.domain.dto.AuthUserRequest;
 
 @RestController

@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import dio.budgeting.domain.Goal;
-import dio.budgeting.domain.GoalRepository;
-import dio.budgeting.domain.UserId;
+import dio.budgeting.domain.goal.Goal;
+import dio.budgeting.domain.goal.GoalRepository;
+import dio.budgeting.domain.user.UserId;
 import dio.budgeting.infrastructure.persistence.entity.GoalEntity;
 
 @Repository

@@ -1,12 +1,12 @@
-package dio.budgeting.application;
+package dio.budgeting.application.user;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.input.PersistUserInput;
 import dio.budgeting.application.output.UserOutput;
-import dio.budgeting.domain.User;
-import dio.budgeting.domain.UserRepository;
+import dio.budgeting.domain.user.User;
+import dio.budgeting.domain.user.UserRepository;
 
 @Service
 public class PersistUserUseCase {

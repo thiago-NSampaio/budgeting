@@ -1,11 +1,11 @@
-package dio.budgeting.application;
+package dio.budgeting.application.goal;
 
 import org.springframework.stereotype.Service;
 
 import dio.budgeting.application.input.PersistGoalInput;
 import dio.budgeting.application.output.GoalOutput;
-import dio.budgeting.domain.Goal;
-import dio.budgeting.domain.GoalRepository;
+import dio.budgeting.domain.goal.Goal;
+import dio.budgeting.domain.goal.GoalRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service

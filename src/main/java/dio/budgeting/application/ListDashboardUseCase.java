@@ -7,12 +7,12 @@ import dio.budgeting.application.output.BudgetLimitOutput;
 import dio.budgeting.application.output.DashboardOutput;
 import dio.budgeting.application.output.GoalOutput;
 import dio.budgeting.application.output.TransactionOutput;
-import dio.budgeting.domain.Balance;
-import dio.budgeting.domain.BudgetLimitRepository;
 import dio.budgeting.domain.Expense;
-import dio.budgeting.domain.GoalRepository;
 import dio.budgeting.domain.Income;
-import dio.budgeting.domain.TransactionRepository;
+import dio.budgeting.domain.balance.Balance;
+import dio.budgeting.domain.balance.BudgetLimitRepository;
+import dio.budgeting.domain.goal.GoalRepository;
+import dio.budgeting.domain.transaction.TransactionRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service
