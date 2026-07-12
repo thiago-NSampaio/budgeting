@@ -1,5 +1,7 @@
 package dio.budgeting.domain.chatMemory;
 
+import java.time.LocalDateTime;
+
 import dio.budgeting.domain.user.UserId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +13,7 @@ public class ChatMemory {
     private String message;
     private String response;
     private UserId userId;
+    private LocalDateTime createdAt;
 
     public ChatMemory(String message,String response, UserId userId) {
         this.id = new ChatMemoryId();
