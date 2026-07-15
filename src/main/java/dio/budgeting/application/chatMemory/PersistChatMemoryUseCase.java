@@ -1,30 +1,35 @@
 package dio.budgeting.application.chatMemory;
 
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.stereotype.Service;
-
 import dio.budgeting.application.input.PersistChatMemoryInput;
 import dio.budgeting.application.output.ChatMemoryOutput;
+
 import dio.budgeting.domain.chatMemory.ChatMemory;
 import dio.budgeting.domain.chatMemory.ChatMemoryRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
-@Service
 public class PersistChatMemoryUseCase {
-    private AuthenticatedUserProvider authenticatedUserProvider;
     private ChatMemoryRepository chatMemoryRepository;
+    private AuthenticatedUserProvider authenticatedUserProvider;
 
-    public PersistChatMemoryUseCase(AuthenticatedUserProvider authenticatedUserProvider,
-            ChatMemoryRepository chatMemoryRepository) {
-        this.authenticatedUserProvider = authenticatedUserProvider;
+    public PersistChatMemoryUseCase(ChatMemoryRepository chatMemoryRepository,
+            AuthenticatedUserProvider authenticatedUserProvider) {
         this.chatMemoryRepository = chatMemoryRepository;
+        this.authenticatedUserProvider = authenticatedUserProvider;
     }
- 
-    @Tool(name = "persist-chat-memory", description = "Persiste a mensagem do usuário e a resposta do agente")
-    public ChatMemoryOutput execute(PersistChatMemoryInput input){
-        var userId = authenticatedUserProvider.currentUserId();
 
-        var chatMemory = chatMemoryRepository.save(new ChatMemory(input.message(),input.response(),userId));
+    public ChatMemoryOutput execute(PersistChatMemoryInput input) {
+        var userId = authenticatedUserProvider.currentUserId();
+        var chatMemory = chatMemoryRepository.save(
+                new ChatMemory(
+                        input.message(),
+                        input.response(),
+                        userId,
+                        input.actions(),
+                        input.error(),
+                        input.confirmation(),
+                        input.clarification(),
+                        input.status(),
+                        input.metadata()));
 
         return ChatMemoryOutput.from(chatMemory);
     }

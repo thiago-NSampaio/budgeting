@@ -1,0 +1,13 @@
+package dio.budgeting.domain;
+
+public enum ActionType {
+    TRANSACTION_CREATED,
+    GOAL_UPDATED,
+    QUERY_EXECUTED,
+    BUDGET_LIMIT_SET,
+    TRANSACTION_LISTED,
+    GOAL_LISTED,
+    BUDGET_LIMIT_LISTED,
+    CHAT_MEMORY_PERSISTED,
+    CHAT_MEMORY_LISTED
+}

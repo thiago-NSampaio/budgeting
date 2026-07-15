@@ -11,8 +11,8 @@ import dio.budgeting.providers.AuthenticatedUserProvider;
 
 @Service
 public class ListChatMemoryUseCase {
-    private final ChatMemoryRepository chatMemoryRepository;
-    private final AuthenticatedUserProvider authenticatedUserProvider;
+    private ChatMemoryRepository chatMemoryRepository;
+    private AuthenticatedUserProvider authenticatedUserProvider;
 
     public ListChatMemoryUseCase(ChatMemoryRepository chatMemoryRepository,
             AuthenticatedUserProvider authenticatedUserProvider) {
