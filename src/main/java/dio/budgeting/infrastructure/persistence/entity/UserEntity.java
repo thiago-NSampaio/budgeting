@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class UserEntity {
     @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(nullable = false)

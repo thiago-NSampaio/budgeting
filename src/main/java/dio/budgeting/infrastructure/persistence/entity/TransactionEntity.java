@@ -16,6 +16,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Index;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "transactions")
+@Table(name = "transactions", indexes = {
+    @Index(name = "idx_transaction_user_id", columnList = "user_id")
+})
 public class TransactionEntity {
     @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
     private String description;
     private Long amount;
@@ -34,7 +38,7 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
     @CreationTimestamp

@@ -7,6 +7,7 @@ import dio.budgeting.domain.balance.BudgetLimit;
 import dio.budgeting.domain.balance.BudgetLimitId;
 import dio.budgeting.domain.user.UserId;
 import jakarta.persistence.Table;
+import jakarta.persistence.Index;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,15 +16,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "budget_limits")
+@Table(name = "budget_limits", indexes = {
+    @Index(name = "idx_budget_limit_user_id", columnList = "user_id")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BudgetLimitEntity {
     @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
     private YearMonth month;

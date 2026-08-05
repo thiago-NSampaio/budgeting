@@ -1,4 +1,4 @@
-package dio.budgeting.domain.dto.assistant;
+package dio.budgeting.application.dto.assistant;
 
 import java.time.Instant;
 import java.util.List;

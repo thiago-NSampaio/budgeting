@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import dio.budgeting.application.chatMemory.ProcessMessageUseCase;
+import dio.budgeting.application.dto.assistant.AssistantResponse;
+import dio.budgeting.application.input.ProcessMessageInput;
 import dio.budgeting.domain.chatMemory.Error;
-import dio.budgeting.domain.dto.assistant.AssistantResponse;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,11 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AssistantController {
 
-    private ProcessMessageUseCase processMessageUseCase;
+    private final ProcessMessageUseCase processMessageUseCase;
+    private final AuthenticatedUserProvider authenticatedUserProvider;
 
     public AssistantController(ProcessMessageUseCase processMessageUseCase,
             AuthenticatedUserProvider authenticatedUserProvider) {
         this.processMessageUseCase = processMessageUseCase;
+        this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
     @PostMapping(value = "/message", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -34,16 +37,25 @@ public class AssistantController {
         @RequestParam(value = "text", required = false) String text,
         @AuthenticationPrincipal UserDetails userDetails) {
 
-        // Extract userId from authentication (adjust to your auth mechanism)
         if (userDetails == null) {
-            // In real app, authentication filter handles this, but we return a 401-like response
             return ResponseEntity.status(401).body(
                 new AssistantResponse(null, "Authentication required.", null, null,
                     new Error("AUTH_ERROR", "Not authenticated"), null, null, "error", null)
             );
         }
 
-        AssistantResponse response = processMessageUseCase.execute(audio, text);
-        return ResponseEntity.ok(response);
+        try {
+            byte[] audioBytes = (audio != null && !audio.isEmpty()) ? audio.getBytes() : null;
+            String userId = authenticatedUserProvider.currentUserId().uuid().toString();
+            ProcessMessageInput input = new ProcessMessageInput(audioBytes, text, userId);
+            AssistantResponse response = processMessageUseCase.execute(input);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Error processing request in controller", e);
+            return ResponseEntity.status(500).body(
+                new AssistantResponse(null, "Internal server error.", null, null,
+                    new Error("SERVER_ERROR", e.getMessage()), null, null, "error", null)
+            );
+        }
     }
 }

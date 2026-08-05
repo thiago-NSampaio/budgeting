@@ -6,6 +6,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
@@ -17,7 +18,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "audio_files")
+@Table(name = "audio_files", indexes = {
+    @Index(name = "idx_audio_file_interaction_id", columnList = "interaction_id"),
+    @Index(name = "idx_audio_file_user_id", columnList = "user_id")
+})
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

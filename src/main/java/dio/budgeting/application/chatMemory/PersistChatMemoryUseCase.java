@@ -7,6 +7,9 @@ import dio.budgeting.domain.chatMemory.ChatMemory;
 import dio.budgeting.domain.chatMemory.ChatMemoryRepository;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PersistChatMemoryUseCase {
     private ChatMemoryRepository chatMemoryRepository;
     private AuthenticatedUserProvider authenticatedUserProvider;

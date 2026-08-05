@@ -26,14 +26,19 @@ import dio.budgeting.infrastructure.persistence.converter.MetadataConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "chat_memories")
+@Table(name = "chat_memories", indexes = {
+    @Index(name = "idx_chat_memory_user_id", columnList = "user_id"),
+    @Index(name = "idx_chat_memory_created_at", columnList = "created_at")
+})
 public class ChatMemoryEntity {
     @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "user_message", nullable = false, columnDefinition = "TEXT")
@@ -42,7 +47,7 @@ public class ChatMemoryEntity {
     @Column(name = "assistant_text", columnDefinition = "TEXT")
     private String assistantText;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
     @Column(name = "created_at", nullable = false)

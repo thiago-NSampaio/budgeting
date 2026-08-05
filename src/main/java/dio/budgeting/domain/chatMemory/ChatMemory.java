@@ -26,6 +26,7 @@ public class ChatMemory {
         this.userMessage = userMessage;
         this.assistantText = assistantText;
         this.userId = userId;
+        this.createdAt = LocalDateTime.now();
         this.actions = actions;
         this.error = error;
         this.confirmation = confirmation;
