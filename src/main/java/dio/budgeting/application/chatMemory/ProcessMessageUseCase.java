@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -19,9 +20,8 @@ import dio.budgeting.domain.chatMemory.ChatMemoryRepository;
 import dio.budgeting.domain.dto.assistant.AssistantResponse;
 import dio.budgeting.providers.AuthenticatedUserProvider;
 import dio.budgeting.service.AudioStorageService;
-import dio.budgeting.service.ChatService;
-import dio.budgeting.service.PiperClient;
-import dio.budgeting.service.WhisperClient;
+import dio.budgeting.service.PiperTtsService;
+import dio.budgeting.service.TranscriptionService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -29,17 +29,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProcessMessageUseCase {
     private ChatMemoryRepository chatMemoryRepository;
-    private ChatService chatService;
-    private WhisperClient whisperClient;
-    private PiperClient piperClient;
+    private ChatClient chatClient;
+    private TranscriptionService whisperClient;
+    private PiperTtsService piperClient;
     private AudioStorageService audioStorageService;
     private AuthenticatedUserProvider authenticatedUserProvider;
 
-    public ProcessMessageUseCase(ChatMemoryRepository chatMemoryRepository, ChatService chatService,
-            WhisperClient whisperClient, PiperClient piperClient, AudioStorageService audioStorageService,
-            AuthenticatedUserProvider authenticatedUserProvider) {
+    public ProcessMessageUseCase(ChatMemoryRepository chatMemoryRepository,
+            TranscriptionService whisperClient, PiperTtsService piperClient, AudioStorageService audioStorageService,
+
+            ChatClient.Builder chatClientBuilder, AuthenticatedUserProvider authenticatedUserProvider) {
         this.chatMemoryRepository = chatMemoryRepository;
-        this.chatService = chatService;
+        this.chatClient = chatClientBuilder.build();
         this.whisperClient = whisperClient;
         this.piperClient = piperClient;
         this.audioStorageService = audioStorageService;
@@ -53,23 +54,23 @@ public class ProcessMessageUseCase {
 
         try {
             if (audio != null && !audio.isEmpty()) {
-                userMessage = whisperClient.transcribe(audio.getInputStream());
+                userMessage = whisperClient.transcribeAudio(audio);
             } else if (text != null && !text.isBlank()) {
                 userMessage = text;
             } else {
                 return buildErrorResponse(interactionId, start, null,
-                    "No input provided", "Please provide text or audio.");
+                        "No input provided", "Please provide text or audio.");
             }
         } catch (Exception e) {
             log.error("Whisper transcription failed", e);
             return buildErrorResponse(interactionId, start, null,
-                "STT_ERROR", "I couldn't understand the audio. Please try again.");
+                    "STT_ERROR", "I couldn't understand the audio. Please try again.");
         }
 
         var userId = authenticatedUserProvider.currentUserId();
 
         List<ChatMemory> recentMemories = chatMemoryRepository
-            .findByUserId(userId);
+                .findByUserId(userId);
         Collections.reverse(recentMemories);
         if (recentMemories.size() > 20) {
             recentMemories = recentMemories.subList(recentMemories.size() - 20, recentMemories.size());
@@ -85,42 +86,56 @@ public class ProcessMessageUseCase {
 
         AgentResult agentResult;
         try {
-            agentResult = chatService.process(userMessage, historyMessages);
+
+            // Chamar o ChatClient com a fluent API
+            String assistantText = chatClient.prompt()
+                    .system("You are a financial assistant. Use tools when necessary.")
+                    .messages(historyMessages)
+                    .user(userMessage)
+                    .call()
+                    .content();
+
+            // Construir AgentResult
+            agentResult = AgentResult.builder()
+                    .assistantText(assistantText)
+                    .actionsTaken(List.of())
+                    .toolsCalled(List.of())
+                    .status("OK")
+                    .build();
         } catch (Exception e) {
             log.error("LLM processing failed", e);
             return buildErrorResponse(interactionId, start, userMessage,
-                "LLM_ERROR", "Sorry, I had trouble processing your message. Please try again.");
+                    "LLM_ERROR", "Sorry, I had trouble processing your message. Please try again.");
         }
 
         String audioUrl = null;
         if (agentResult.getAssistantText() != null && !agentResult.getAssistantText().isBlank()) {
             try {
-                byte[] audioBytes = piperClient.synthesize(agentResult.getAssistantText());
-                audioUrl = audioStorageService.store(interactionId, audioBytes);
+                byte[] audioBytes = piperClient.generateSpeech(agentResult.getAssistantText());
+                var storedAudio = audioStorageService.store(interactionId, audioBytes, userId);
+                audioUrl = storedAudio != null ? storedAudio.getFileName() : null;
             } catch (Exception e) {
                 log.warn("Audio synthesis/storage failed, continuing without audio", e);
             }
         }
 
         AssistantResponse response = new AssistantResponse(
-            userMessage,
-            agentResult.getAssistantText(),
-            audioUrl,
-            agentResult.getActionsTaken(),
-            agentResult.getError(),
-            agentResult.getConfirmation(),
-            agentResult.getClarification(),
-            agentResult.getStatus(),
-            new AssistantResponse.Metadata(
-                interactionId,
-                Instant.now(),
-                agentResult.getToolsCalled(),
-                System.currentTimeMillis() - start
-            )
-        );
+                userMessage,
+                agentResult.getAssistantText(),
+                audioUrl,
+                agentResult.getActionsTaken(),
+                agentResult.getError(),
+                agentResult.getConfirmation(),
+                agentResult.getClarification(),
+                agentResult.getStatus(),
+                new AssistantResponse.Metadata(
+                        interactionId,
+                        Instant.now(),
+                        agentResult.getToolsCalled(),
+                        System.currentTimeMillis() - start));
 
         try {
- 
+
         } catch (Exception e) {
             log.error("Failed to persist chat memory, but response is returned", e);
         }
@@ -129,22 +144,20 @@ public class ProcessMessageUseCase {
     }
 
     private AssistantResponse buildErrorResponse(String interactionId, long start, String userMessage,
-                                                 String errorCode, String message) {
+            String errorCode, String message) {
         return new AssistantResponse(
-            userMessage,
-            message,
-            null,
-            null,
-            new dio.budgeting.domain.chatMemory.Error(errorCode, message),
-            null,
-            null,
-            "error",
-            new AssistantResponse.Metadata(
-                interactionId,
-                Instant.now(),
-                List.of(),
-                System.currentTimeMillis() - start
-            )
-        );
+                userMessage,
+                message,
+                null,
+                null,
+                new dio.budgeting.domain.chatMemory.Error(errorCode, message),
+                null,
+                null,
+                "error",
+                new AssistantResponse.Metadata(
+                        interactionId,
+                        Instant.now(),
+                        List.of(),
+                        System.currentTimeMillis() - start));
     }
 }

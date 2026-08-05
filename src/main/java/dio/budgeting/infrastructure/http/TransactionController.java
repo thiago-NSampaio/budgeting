@@ -34,12 +34,12 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
-    private final PersistTransactionUseCase persistTransactionUseCase;
-    private final ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase;
-    private final TranscriptionService transcriptionService;
-    private final ChatClient chatClient;
-    private final PiperTtsService piperTtsService;
-    private final ListTransactionsByUserUseCase listTransactionsByUser;
+    private PersistTransactionUseCase persistTransactionUseCase;
+    private ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase;
+    private TranscriptionService transcriptionService;
+    private ChatClient chatClient;
+    private PiperTtsService piperTtsService;
+    private ListTransactionsByUserUseCase listTransactionsByUser;
 
     public TransactionController(
         PersistTransactionUseCase persistTransactionUseCase,
